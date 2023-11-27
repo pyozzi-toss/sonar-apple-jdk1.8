@@ -59,7 +59,7 @@ public final class SwiftLintRunnerTest {
     public void exitCodes() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method options = clazz.getDeclaredMethod("exitCodes");
         options.setAccessible(true);
-        assertThat(options.invoke(runner)).isEqualTo(new Integer[]{0, 2});
+        assertThat(options.invoke(runner)).isEqualTo(new int[]{0, 2});
     }
 
 }

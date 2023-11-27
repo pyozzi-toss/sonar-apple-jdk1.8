@@ -27,6 +27,7 @@ import org.junit.Test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -52,7 +53,7 @@ public final class PeripheryReportIssueMapperTest {
         issue.ruleIdentifier = "rule-id";
         issue.location = location;
         // test
-        Set<ReportIssue> reportIssues = mapper.map(List.of(issue));
+        Set<ReportIssue> reportIssues = mapper.map(new ArrayList<>(Arrays.asList(issue)));
         // assert
         List<ReportIssue> reportIssuesList = new ArrayList<>(reportIssues);
         assertThat(reportIssuesList).hasSize(1);

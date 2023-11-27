@@ -29,6 +29,8 @@ import org.sonar.api.batch.rule.internal.NewActiveRule;
 import org.sonar.api.resources.Language;
 import org.sonar.api.rule.RuleKey;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -63,7 +65,7 @@ public final class XcodeWarningsReportIssueSplitterTest {
             )
             .forEach(builder::addRule);
         activeRules = builder.build();
-        splitter = new XcodeWarningsReportIssueSplitter(List.of(swiftRulesDefinition, objcRulesDefinition));
+        splitter = new XcodeWarningsReportIssueSplitter(Arrays.asList(swiftRulesDefinition, objcRulesDefinition));
     }
 
     private static String buildRule(Language language) {
@@ -74,7 +76,7 @@ public final class XcodeWarningsReportIssueSplitterTest {
     public void no_issue() {
         // prepare
         // test
-        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(List.of(), activeRules);
+        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(new ArrayList<>(), activeRules);
         // assert
         assertThat(issuesSplit).hasSize(2);
         assertThat(issuesSplit.get(swiftRulesDefinition)).isEmpty();
@@ -86,7 +88,7 @@ public final class XcodeWarningsReportIssueSplitterTest {
         // prepare
         ReportIssue reportIssue = new ReportIssue(buildRule(swiftRulesDefinition.getLanguage()), "message", "path/to/file.ext", 15);
         // test
-        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(List.of(reportIssue), activeRules);
+        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(Arrays.asList(reportIssue), activeRules);
         // assert
         assertThat(issuesSplit).hasSize(2);
         assertThat(issuesSplit.get(swiftRulesDefinition)).isEmpty();
@@ -98,7 +100,7 @@ public final class XcodeWarningsReportIssueSplitterTest {
         // prepare
         ReportIssue reportIssue = new ReportIssue(buildRule(swiftRulesDefinition.getLanguage()), "message", "path/to/file.swift", 15);
         // test
-        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(List.of(reportIssue), activeRules);
+        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(Arrays.asList(reportIssue), activeRules);
         // assert
         assertThat(issuesSplit).hasSize(2);
         assertThat(issuesSplit.get(swiftRulesDefinition)).hasSize(1);
@@ -111,7 +113,7 @@ public final class XcodeWarningsReportIssueSplitterTest {
         ReportIssue reportIssue1 = new ReportIssue(buildRule(swiftRulesDefinition.getLanguage()), "message", "path/to/file.swift", 15);
         ReportIssue reportIssue2 = new ReportIssue(buildRule(objcRulesDefinition.getLanguage()), "message", "path/to/file.m", 15);
         // test
-        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(List.of(reportIssue1, reportIssue2), activeRules);
+        Map<XcodeWarningRulesDefinition, List<ReportIssue>> issuesSplit = splitter.split(Arrays.asList(reportIssue1, reportIssue2), activeRules);
         // assert
         assertThat(issuesSplit).hasSize(2);
         assertThat(issuesSplit.get(swiftRulesDefinition)).hasSize(1);

@@ -25,17 +25,19 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.scanner.ScannerSide;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @ScannerSide
 public class SwiftHighlighterVisitor implements ParseTreeItemVisitor {
 
-    private static final Set<Integer> Swift5CommentTypes = Set.of(
+    private static final Set<Integer> Swift5CommentTypes = new HashSet<>(Arrays.asList(
             Swift5Parser.Block_comment,
             Swift5Parser.Line_comment
-    );
+    ));
 
-    private static final Set<Integer> Swift5StringTypes = Set.of(
+    private static final Set<Integer> Swift5StringTypes = new HashSet<>(Arrays.asList(
             Swift5Parser.Single_line_extended_string_open,
             Swift5Parser.Multi_line_extended_string_open,
             Swift5Parser.Multi_line_string_open,
@@ -50,14 +52,13 @@ public class SwiftHighlighterVisitor implements ParseTreeItemVisitor {
             Swift5Parser.Quoted_single_line_extended_text,
             Swift5Parser.Multi_line_extended_string_close,
             Swift5Parser.Quoted_multi_line_extended_text
-    );
+    ));
 
-    private static final Set<Integer> Swift5KeywordLightTypes = Set.of(
+    private static final Set<Integer> Swift5KeywordLightTypes = new HashSet<>(
             Swift5Parser.Identifier
     );
 
-    private static final Set<Integer> Swift5KeywordTypes = Set.of(
-            Swift5Parser.AS, Swift5Parser.ALPHA, Swift5Parser.BREAK, Swift5Parser.CASE, Swift5Parser.CATCH,
+    private static final Set<Integer> Swift5KeywordTypes = new HashSet<>(Arrays.asList(Swift5Parser.AS, Swift5Parser.ALPHA, Swift5Parser.BREAK, Swift5Parser.CASE, Swift5Parser.CATCH,
             Swift5Parser.CLASS, Swift5Parser.CONTINUE, Swift5Parser.DEFAULT, Swift5Parser.DEFER, Swift5Parser.DO,
             Swift5Parser.GUARD, Swift5Parser.ELSE, Swift5Parser.ENUM, Swift5Parser.FOR, Swift5Parser.FALLTHROUGH,
             Swift5Parser.FUNC, Swift5Parser.IN, Swift5Parser.IF, Swift5Parser.IMPORT, Swift5Parser.INTERNAL,
@@ -97,8 +98,7 @@ public class SwiftHighlighterVisitor implements ParseTreeItemVisitor {
             Swift5Parser.Operator_head_other, Swift5Parser.Operator_following_character, Swift5Parser.Binary_literal,
             Swift5Parser.Octal_literal, Swift5Parser.Decimal_digits, Swift5Parser.Decimal_literal,
             Swift5Parser.Hexadecimal_literal, Swift5Parser.Floating_point_literal, Swift5Parser.WS,
-            Swift5Parser.HASHBANG
-    );
+            Swift5Parser.HASHBANG));
 
     private final HighlighterVisitor highlighterVisitor;
 

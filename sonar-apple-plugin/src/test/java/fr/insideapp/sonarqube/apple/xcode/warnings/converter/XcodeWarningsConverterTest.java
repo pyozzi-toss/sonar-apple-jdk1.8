@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
@@ -57,7 +58,7 @@ public final class XcodeWarningsConverterTest {
         String warningSummaryJSON = FileUtils.readFileToString(warningSummaryFile, Charset.defaultCharset());
         WarningSummary warningSummary = objectMapper.readValue(warningSummaryJSON, WarningSummary.class);
         // test
-        final List<XcodeWarning> warnings = new ArrayList<>(converter.map(List.of(warningSummary)));
+        final List<XcodeWarning> warnings = new ArrayList<>(converter.map(Arrays.asList(warningSummary)));
         // assert
         assertThat(warnings).hasSize(1);
         XcodeWarning warning = warnings.get(0);
@@ -73,7 +74,7 @@ public final class XcodeWarningsConverterTest {
         String warningSummaryJSON = FileUtils.readFileToString(warningSummaryFile, Charset.defaultCharset());
         WarningSummary warningSummary = objectMapper.readValue(warningSummaryJSON, WarningSummary.class);
         // test
-        final List<XcodeWarning> warnings = new ArrayList<>(converter.map(List.of(warningSummary)));
+        final List<XcodeWarning> warnings = new ArrayList<>(converter.map(Arrays.asList(warningSummary)));
         // assert
         assertThat(warnings).hasSize(1);
         XcodeWarning warning = warnings.get(0);
@@ -92,7 +93,7 @@ public final class XcodeWarningsConverterTest {
         String warningSummaryJSON = FileUtils.readFileToString(warningSummaryFile, Charset.defaultCharset());
         WarningSummary warningSummary = objectMapper.readValue(warningSummaryJSON, WarningSummary.class);
         // test
-        final List<XcodeWarning> warnings = new ArrayList<>(converter.map(List.of(warningSummary)));
+        final List<XcodeWarning> warnings = new ArrayList<>(converter.map(Arrays.asList(warningSummary)));
         // assert
         assertThat(warnings).hasSize(1);
         XcodeWarning warning = warnings.get(0);

@@ -28,6 +28,8 @@ import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -58,7 +60,7 @@ public final class OCLintRunnerTest {
     public void option_no_sources() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method options = clazz.getDeclaredMethod("arguments");
         options.setAccessible(true);
-        mockSources(List.of());
+        mockSources(new ArrayList<>());
         mockJSONCompilationDatabase(new File("/a/path/to","database.json"));
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -72,7 +74,7 @@ public final class OCLintRunnerTest {
     public void option_one_source() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method options = clazz.getDeclaredMethod("arguments");
         options.setAccessible(true);
-        mockSources(List.of("source"));
+        mockSources(Arrays.asList("source"));
         mockJSONCompilationDatabase(new File("/a/path/to","database.json"));
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -87,7 +89,7 @@ public final class OCLintRunnerTest {
     public void option_two_sources() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method options = clazz.getDeclaredMethod("arguments");
         options.setAccessible(true);
-        mockSources(List.of("source1", "source2"));
+        mockSources(Arrays.asList("source1", "source2"));
         mockJSONCompilationDatabase(new File("/a/path/to","database.json"));
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{

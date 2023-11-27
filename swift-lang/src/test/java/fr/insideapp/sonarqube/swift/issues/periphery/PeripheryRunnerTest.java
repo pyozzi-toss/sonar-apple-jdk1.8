@@ -25,6 +25,8 @@ import org.sonar.api.config.Configuration;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +59,8 @@ public final class PeripheryRunnerTest {
         options.setAccessible(true);
         mockWorkspace(Optional.empty());
         mockProject(Optional.empty());
-        mockSchemes(List.of());
-        mockTargets(List.of());
+        mockSchemes(new ArrayList<>());
+        mockTargets(new ArrayList<>());
         mockIndexStorePath(Optional.empty());
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -73,8 +75,8 @@ public final class PeripheryRunnerTest {
         Method options = clazz.getDeclaredMethod("arguments");
         options.setAccessible(true);
         mockWorkspace(Optional.of("MyProject.xcworkspace"));
-        mockSchemes(List.of());
-        mockTargets(List.of());
+        mockSchemes(new ArrayList<>());
+        mockTargets(new ArrayList<>());
         mockIndexStorePath(Optional.empty());
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -91,8 +93,8 @@ public final class PeripheryRunnerTest {
         options.setAccessible(true);
         mockWorkspace(Optional.empty());
         mockProject(Optional.of("MyProject.xcodeproj"));
-        mockSchemes(List.of());
-        mockTargets(List.of());
+        mockSchemes(new ArrayList<>());
+        mockTargets(new ArrayList<>());
         mockIndexStorePath(Optional.empty());
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -109,8 +111,8 @@ public final class PeripheryRunnerTest {
         options.setAccessible(true);
         mockWorkspace(Optional.of("MyProject.xcworkspace"));
         mockProject(Optional.of("MyProject.xcodeproj"));
-        mockSchemes(List.of());
-        mockTargets(List.of());
+        mockSchemes(new ArrayList<>());
+        mockTargets(new ArrayList<>());
         mockIndexStorePath(Optional.empty());
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -127,8 +129,8 @@ public final class PeripheryRunnerTest {
         options.setAccessible(true);
         mockWorkspace(Optional.empty());
         mockProject(Optional.empty());
-        mockSchemes(List.of("MyScheme"));
-        mockTargets(List.of());
+        mockSchemes(new ArrayList<>(Arrays.asList("MyScheme")));
+        mockTargets(new ArrayList<>());
         mockIndexStorePath(Optional.empty());
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -145,8 +147,8 @@ public final class PeripheryRunnerTest {
         options.setAccessible(true);
         mockWorkspace(Optional.empty());
         mockProject(Optional.empty());
-        mockSchemes(List.of());
-        mockTargets(List.of("MyTarget"));
+        mockSchemes(new ArrayList<>());
+        mockTargets(new ArrayList<>(Arrays.asList("MyTarget")));
         mockIndexStorePath(Optional.empty());
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
@@ -163,8 +165,8 @@ public final class PeripheryRunnerTest {
         options.setAccessible(true);
         mockWorkspace(Optional.empty());
         mockProject(Optional.empty());
-        mockSchemes(List.of());
-        mockTargets(List.of());
+        mockSchemes(new ArrayList<>());
+        mockTargets(new ArrayList<>());
         mockIndexStorePath(Optional.of("/path/to/index/store"));
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{

@@ -23,6 +23,7 @@ import fr.insideapp.sonarqube.objc.issues.mobsfscan.MobSFScanObjectiveCRulesDefi
 import fr.insideapp.sonarqube.objc.issues.oclint.OCLintRulesDefinition;
 import fr.insideapp.sonarqube.objc.issues.warnings.XcodeWarningObjectiveCRulesDefinition;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ObjectiveCProfile extends ProfilesDefinition {
@@ -34,7 +35,7 @@ public class ObjectiveCProfile extends ProfilesDefinition {
         final MobSFScanObjectiveCRulesDefinition mobSFScanObjectiveCRulesDefinition,
         final XcodeWarningObjectiveCRulesDefinition xcodeWarningObjectiveCRulesDefinition
         ) {
-        super(objectiveC, parser, List.of(
+        super(objectiveC, parser, Arrays.asList(
             ocLintRulesDefinition,
             mobSFScanObjectiveCRulesDefinition,
             xcodeWarningObjectiveCRulesDefinition

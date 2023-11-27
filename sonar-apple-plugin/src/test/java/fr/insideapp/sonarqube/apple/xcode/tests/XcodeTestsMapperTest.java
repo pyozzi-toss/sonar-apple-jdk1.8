@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
@@ -55,7 +56,7 @@ public final class XcodeTestsMapperTest {
         String actionTestableSummaryJSON = FileUtils.readFileToString(actionTestableSummaryFile, Charset.defaultCharset());
         ActionTestableSummary actionTestableSummary = objectMapper.readValue(actionTestableSummaryJSON, ActionTestableSummary.class);
         // test
-        final List<XcodeTestSummary> appleTestSummaries = new ArrayList<>(mapper.map(List.of(actionTestableSummary)));
+        final List<XcodeTestSummary> appleTestSummaries = new ArrayList<>(mapper.map(Arrays.asList(actionTestableSummary)));
         // assert
         assertThat(appleTestSummaries).hasSize(1);
         assertThat(appleTestSummaries.get(0).groups).hasSize(2);

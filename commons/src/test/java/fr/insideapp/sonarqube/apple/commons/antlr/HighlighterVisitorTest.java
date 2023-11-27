@@ -1,20 +1,3 @@
-/*
- * SonarQube Apple Plugin - Enables analysis of Swift and Objective-C projects into SonarQube.
- * Copyright © 2022 inside|app (contact@insideapp.fr)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package fr.insideapp.sonarqube.apple.commons.antlr;
 
 import fr.insideapp.sonarqube.apple.commons.SourceLine;
@@ -27,20 +10,40 @@ import org.sonar.api.batch.sensor.internal.SensorContextTester;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.Set;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class HighlighterVisitorTest {
-    private static final Set<Integer> commentTypes = Set.of(1,2,3);
-    private static final Set<Integer> stringTypes = Set.of(4,5);
-    private static final Set<Integer> preprocessTypes = Set.of(6,7);
-    private static final Set<Integer> keywordLightTypes = Set.of(8);
-    private static final Set<Integer> keywordTypes = Set.of(8,9,10,11);
+    private static final Set<Integer> commentTypes = new HashSet<>();
+    private static final Set<Integer> stringTypes = new HashSet<>();
+    private static final Set<Integer> preprocessTypes = new HashSet<>();
+    private static final Set<Integer> keywordLightTypes = new HashSet<>();
+    private static final Set<Integer> keywordTypes = new HashSet<>();
     private static final int whitespaceType = 100;
+
+    static {
+        commentTypes.add(1);
+        commentTypes.add(2);
+        commentTypes.add(3);
+
+        stringTypes.add(4);
+        stringTypes.add(5);
+
+        preprocessTypes.add(6);
+        preprocessTypes.add(7);
+
+        keywordLightTypes.add(8);
+
+        keywordTypes.add(8);
+        keywordTypes.add(9);
+        keywordTypes.add(10);
+        keywordTypes.add(11);
+    }
 
     @Test
     public void fillContext() {
@@ -55,11 +58,11 @@ public class HighlighterVisitorTest {
         sensorContext.fileSystem().add(testFile);
 
         SourceLine[] lines = {
-                new SourceLine(0,1,0,1),
-                new SourceLine(1,1,0,1),
-                new SourceLine(2,1,0,1),
-                new SourceLine(3,1,0,1),
-                new SourceLine(4,1,0,1)
+                new SourceLine(0, 1, 0, 1),
+                new SourceLine(1, 1, 0, 1),
+                new SourceLine(2, 1, 0, 1),
+                new SourceLine(3, 1, 0, 1),
+                new SourceLine(4, 1, 0, 1)
         };
 
         Token commentToken = mock(Token.class);
@@ -109,14 +112,14 @@ public class HighlighterVisitorTest {
         when(antlrContext.getLineAndColumn(4)).thenReturn(new int[]{4, 0});
         when(antlrContext.getLineAndColumn(5)).thenReturn(new int[]{5, 0});
 
-        HighlighterVisitor visitor = new HighlighterVisitor.Builder()
+        HighlighterVisitor.Builder builder = new HighlighterVisitor.Builder()
                 .commentTypes(commentTypes)
                 .stringTypes(stringTypes)
                 .preprocessTypes(preprocessTypes)
                 .keywordLightTypes(keywordLightTypes)
                 .keywordTypes(keywordTypes)
-                .whitespaceType(whitespaceType)
-                .build();
+                .whitespaceType(whitespaceType);
+        HighlighterVisitor visitor = builder.build();
         visitor.fillContext(sensorContext, antlrContext);
 
         // Asserting

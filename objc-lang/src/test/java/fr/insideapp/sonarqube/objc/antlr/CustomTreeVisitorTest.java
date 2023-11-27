@@ -22,6 +22,7 @@ import fr.insideapp.sonarqube.apple.commons.antlr.CustomTreeVisitor;
 import fr.insideapp.sonarqube.apple.commons.antlr.ParseTreeItemVisitor;
 import fr.insideapp.sonarqube.objc.antlr.generated.ObjectiveCLexer;
 import fr.insideapp.sonarqube.objc.antlr.generated.ObjectiveCParser;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -49,7 +50,7 @@ public class CustomTreeVisitorTest {
     @Test
     public void visit() throws IOException {
 
-        final CharStream charStream = CharStreams.fromStream(Objects.requireNonNull(this.getClass().getResourceAsStream(MAIN_SRC)));
+        final CharStream charStream = new ANTLRInputStream(Objects.requireNonNull(this.getClass().getResourceAsStream(MAIN_SRC)));
         final ObjectiveCLexer lexer = new ObjectiveCLexer(charStream);
         lexer.removeErrorListeners();
         final CommonTokenStream stream = new CommonTokenStream(lexer);

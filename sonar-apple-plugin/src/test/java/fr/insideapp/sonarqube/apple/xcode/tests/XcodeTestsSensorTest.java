@@ -128,7 +128,7 @@ public class XcodeTestsSensorTest {
 
     @Test
     public void executeNothingReported() throws IOException {
-        List<FileTest> files = new ArrayList<>() {
+        List<FileTest> files = new ArrayList<FileTest>() {
             {
                 add(new FileTest("path/not/found", null));
             }
@@ -141,7 +141,7 @@ public class XcodeTestsSensorTest {
 
     @Test
     public void executeSuccess() throws IOException {
-        List<FileTest> files = new ArrayList<>() {
+        List<FileTest> files = new ArrayList<FileTest>() {
             {
                 add(new FileTest("TestProjectTests/TestProjectTests", 1));
             }

@@ -24,6 +24,7 @@ import fr.insideapp.sonarqube.apple.mobsfscan.models.MobSFScanReportResultLocati
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public final class MobSFScanReportIssueMapperTest {
         MobSFScanIssue issue = new MobSFScanIssue(
                 "rule-id",
                 "a message",
-                List.of()
+                new ArrayList<>()
         );
         // test
         Set<ReportIssue> reportIssues = mapper.map(Arrays.asList(issue));
@@ -65,11 +66,11 @@ public final class MobSFScanReportIssueMapperTest {
         // prepare
         MobSFScanReportResultLocation location1 = new MobSFScanReportResultLocation();
         location1.path = "path/to/the/file";
-        location1.lines = List.of(18);
+        location1.lines = Arrays.asList(18);
         MobSFScanIssue issue = new MobSFScanIssue(
                 "rule-id",
                 "a message",
-                List.of(location1)
+                Arrays.asList(location1)
         );
         // test
         Set<ReportIssue> reportIssues = mapper.map(Arrays.asList(issue));

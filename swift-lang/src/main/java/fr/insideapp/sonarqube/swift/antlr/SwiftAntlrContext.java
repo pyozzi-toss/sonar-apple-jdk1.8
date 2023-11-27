@@ -22,6 +22,7 @@ import fr.insideapp.sonarqube.apple.commons.SourceLinesProvider;
 import fr.insideapp.sonarqube.apple.commons.antlr.AntlrContext;
 import fr.insideapp.sonarqube.swift.antlr.generated.Swift5Lexer;
 import fr.insideapp.sonarqube.swift.antlr.generated.Swift5Parser;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -38,14 +39,14 @@ public class SwiftAntlrContext extends AntlrContext {
     @Override
     public void loadFromStreams(InputFile inputFile, InputStream file, InputStream linesStream, Charset charset) throws IOException {
         final SourceLinesProvider linesProvider = new SourceLinesProvider();
-        final CharStream charStream = CharStreams.fromStream(file, charset);
+        final ANTLRInputStream charStream = new ANTLRInputStream(file); // ANTLRInputStream 사용
         final Swift5Lexer lexer = new Swift5Lexer(charStream);
         lexer.removeErrorListeners();
         final CommonTokenStream stream = new CommonTokenStream(lexer);
         stream.fill();
         final Swift5Parser parser = new Swift5Parser(stream);
         parser.removeErrorListeners();
-        final Swift5Parser.Top_levelContext root =  parser.top_level();
+        final Swift5Parser.Top_levelContext root = parser.top_level();
         final SourceLine[] lines = linesProvider.getLines(linesStream, charset);
 
         this.setFile(inputFile);

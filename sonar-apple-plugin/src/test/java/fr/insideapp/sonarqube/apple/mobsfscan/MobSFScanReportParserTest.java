@@ -96,7 +96,7 @@ public final class MobSFScanReportParserTest {
 
     @Test
     public void parse_no_file() throws IOException {
-        List<Vulnerability> vulnerabilities = new ArrayList<>() {
+        List<Vulnerability> vulnerabilities = new ArrayList<Vulnerability>() {
             {
                 add(new Vulnerability(
                         "ios_detect_jailbreak_check",
@@ -112,13 +112,13 @@ public final class MobSFScanReportParserTest {
 
     @Test
     public void parse_files() throws IOException {
-        List<Location> locations = new ArrayList<>() {
+        List<Location> locations = new ArrayList<Location>() {
             {
                 add(new Location("path/to/file.swift", 15));
                 add(new Location("path/to/another/file.swift", 16));
             }
         };
-        List<Vulnerability> vulnerabilities = new ArrayList<>() {
+        List<Vulnerability> vulnerabilities = new ArrayList<Vulnerability>() {
             {
                 add(new Vulnerability(
                         "ios_log",

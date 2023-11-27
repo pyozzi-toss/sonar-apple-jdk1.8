@@ -55,7 +55,7 @@ public final class XcodeCoverageMapperTest {
         // prepare
         File codeCoverageFile = new File(baseDir, "codeCoverage.json");
         String codeCoverageJSON = FileUtils.readFileToString(codeCoverageFile, Charset.defaultCharset());
-        Map<String, List<XcodeCodeCoverageMetadata>> coverageDataPerFile = objectMapper.readValue(codeCoverageJSON, new TypeReference<>() {});
+        Map<String, List<XcodeCodeCoverageMetadata>> coverageDataPerFile = objectMapper.readValue(codeCoverageJSON, new TypeReference<Map<java.lang.String,java.util.List<fr.insideapp.sonarqube.apple.xcode.coverage.models.XcodeCodeCoverageMetadata>>>() {});
         // test
         final List<XcodeCodeCoverage> coverageData = new ArrayList<>(mapper.map(coverageDataPerFile));
         // assert

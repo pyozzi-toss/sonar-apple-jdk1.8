@@ -19,6 +19,7 @@ package fr.insideapp.sonarqube.apple.mobsfscan;
 
 import fr.insideapp.sonarqube.apple.commons.rules.MobSFScanRulesDefinition;
 import fr.insideapp.sonarqube.apple.commons.issues.ReportIssue;
+import fr.insideapp.sonarqube.apple.commons.warnings.XcodeWarningRulesDefinition;
 import fr.insideapp.sonarqube.apple.mobsfscan.mapper.MobSFScanReportMappable;
 import fr.insideapp.sonarqube.apple.mobsfscan.parser.MobSFScanReportParsable;
 import fr.insideapp.sonarqube.apple.mobsfscan.runner.MobSFScanRunnable;
@@ -97,9 +98,9 @@ public final class MobSFScanSensorTest {
     public void execute_noIssue() {
         // prepare
         when(runner.run()).thenReturn("[]");
-        when(parser.parse(anyString())).thenReturn(List.of());
-        when(mapper.map(any())).thenReturn(Set.of());
-        when(splitter.split(any(), any())).thenReturn(Map.of());
+        when(parser.parse(anyString())).thenReturn(new ArrayList<>());
+        when(mapper.map(any())).thenReturn(new HashSet<>());
+        when(splitter.split(any(), any())).thenReturn(new HashMap<>());
         // test
         sensor.execute(context);
         // assert
@@ -124,9 +125,11 @@ public final class MobSFScanSensorTest {
         );
         context.fileSystem().add(testFile);
         when(runner.run()).thenReturn("[]");
-        when(parser.parse(anyString())).thenReturn(List.of());
-        when(mapper.map(any())).thenReturn(Set.of(issue));
-        when(splitter.split(any(), any())).thenReturn(Map.of(rulesDefinition, List.of(issue)));
+        when(parser.parse(anyString())).thenReturn(new ArrayList<>());
+        when(mapper.map(any())).thenReturn(new HashSet<>(Arrays.asList(issue)));
+        Map<MobSFScanRulesDefinition, List<ReportIssue>> data = new HashMap<>();
+        data.put(rulesDefinition, Arrays.asList(issue));
+        when(splitter.split(any(), any())).thenReturn(new HashMap<>(data));
         when(rulesDefinition.getRepositoryKey()).thenReturn("key");
         // test
         sensor.execute(context);

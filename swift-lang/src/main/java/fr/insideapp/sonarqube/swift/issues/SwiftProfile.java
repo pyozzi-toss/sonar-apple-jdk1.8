@@ -17,6 +17,7 @@
  */
 package fr.insideapp.sonarqube.swift.issues;
 
+import fr.insideapp.sonarqube.apple.commons.rules.JSONRulesDefinition;
 import fr.insideapp.sonarqube.apple.commons.rules.ProfilesDefinition;
 import fr.insideapp.sonarqube.apple.commons.rules.RepositoryRuleParsable;
 import fr.insideapp.sonarqube.swift.Swift;
@@ -25,24 +26,33 @@ import fr.insideapp.sonarqube.swift.issues.periphery.PeripheryRulesDefinition;
 import fr.insideapp.sonarqube.swift.issues.swiftlint.SwiftLintRulesDefinition;
 import fr.insideapp.sonarqube.swift.issues.warnings.XcodeWarningSwiftRulesDefinition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SwiftProfile extends ProfilesDefinition {
 
     public SwiftProfile(
-        final Swift swift,
-        final RepositoryRuleParsable parser,
-        final SwiftLintRulesDefinition swiftLintRulesDefinition,
-        final MobSFScanSwiftRulesDefinition mobSFScanSwiftRulesDefinition,
-        final PeripheryRulesDefinition peripheryRulesDefinition,
-        final XcodeWarningSwiftRulesDefinition xcodeWarningSwiftRulesDefinition
-        ) {
-        super(swift, parser, List.of(
-            swiftLintRulesDefinition,
-            mobSFScanSwiftRulesDefinition,
-            peripheryRulesDefinition,
-            xcodeWarningSwiftRulesDefinition
-        ));
+            final Swift swift,
+            final RepositoryRuleParsable parser,
+            final SwiftLintRulesDefinition swiftLintRulesDefinition,
+            final MobSFScanSwiftRulesDefinition mobSFScanSwiftRulesDefinition,
+            final PeripheryRulesDefinition peripheryRulesDefinition,
+            final XcodeWarningSwiftRulesDefinition xcodeWarningSwiftRulesDefinition
+    ) {
+        super(swift, parser, createRulesDefinitions(swiftLintRulesDefinition, mobSFScanSwiftRulesDefinition, peripheryRulesDefinition, xcodeWarningSwiftRulesDefinition));
     }
 
+    private static List<JSONRulesDefinition> createRulesDefinitions(
+            SwiftLintRulesDefinition swiftLintRulesDefinition,
+            MobSFScanSwiftRulesDefinition mobSFScanSwiftRulesDefinition,
+            PeripheryRulesDefinition peripheryRulesDefinition,
+            XcodeWarningSwiftRulesDefinition xcodeWarningSwiftRulesDefinition
+    ) {
+        List<JSONRulesDefinition> rulesDefinitions = new ArrayList<>();
+        rulesDefinitions.add(swiftLintRulesDefinition);
+        rulesDefinitions.add(mobSFScanSwiftRulesDefinition);
+        rulesDefinitions.add(peripheryRulesDefinition);
+        rulesDefinitions.add(xcodeWarningSwiftRulesDefinition);
+        return rulesDefinitions;
+    }
 }

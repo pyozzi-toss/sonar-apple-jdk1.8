@@ -126,7 +126,7 @@ public class XcodeCoverageSensorTest {
 
     @Test
     public void executeSuccess() throws IOException {
-        List<Coverage> coverages = new ArrayList<>() {
+        List<Coverage> coverages = new ArrayList<Coverage>() {
             {
                 add(new Coverage(1, null));
                 add(new Coverage(2, 0));
@@ -134,7 +134,7 @@ public class XcodeCoverageSensorTest {
                 add(new Coverage(4, Integer.MAX_VALUE));
             }
         };
-        List<FileCoverage> files = new ArrayList<>() {
+        List<FileCoverage> files = new ArrayList<FileCoverage>() {
             {
                 add(new FileCoverage("file.swift", coverages));
             }
@@ -151,7 +151,7 @@ public class XcodeCoverageSensorTest {
         // assert
         assertContainer(new Container(
                 "failure",
-                List.of()
+                new ArrayList<>()
         ));
     }
 

@@ -39,8 +39,7 @@ import org.sonar.api.batch.sensor.issue.Issue;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -135,8 +134,8 @@ public class OCLintSensorTest {
         when(builder.build(jsonCompilationDatabaseFolder)).thenReturn("test");
         when(writer.write("test")).thenReturn(true);
         when(runner.run()).thenReturn("output");
-        when(parser.parse("output")).thenReturn(List.of());
-        when(mapper.map(List.of())).thenReturn(Set.of());
+        when(parser.parse("output")).thenReturn(new ArrayList<>());
+        when(mapper.map(new ArrayList<>())).thenReturn(new HashSet<>());
         when(rulesDefinition.getRepositoryKey()).thenReturn("key");
         // test
         sensor.execute(context);
@@ -166,8 +165,8 @@ public class OCLintSensorTest {
         when(builder.build(jsonCompilationDatabaseFolder)).thenReturn("test");
         when(writer.write("test")).thenReturn(true);
         when(runner.run()).thenReturn("output");
-        when(parser.parse("output")).thenReturn(List.of());
-        when(mapper.map(List.of())).thenReturn(Set.of(issue));
+        when(parser.parse("output")).thenReturn(new ArrayList<>());
+        when(mapper.map(new ArrayList<>())).thenReturn(new HashSet<>(Arrays.asList(issue)));
         when(rulesDefinition.getRepositoryKey()).thenReturn("key");
         // test
         sensor.execute(context);

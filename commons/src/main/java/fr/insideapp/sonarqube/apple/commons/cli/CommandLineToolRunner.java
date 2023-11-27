@@ -21,28 +21,29 @@ import org.buildobjects.process.ProcBuilder;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class CommandLineToolRunner {
 
     private static final Logger LOGGER = Loggers.get(CommandLineToolRunner.class);
     private static final int COMMAND_TIMEOUT = 10 * 60 * 1000;
-    private static final Integer DEFAULT_COMMAND_EXIT_CODE = 0;
+    private static final int DEFAULT_COMMAND_EXIT_CODE = 0;
     private final String command;
 
     protected CommandLineToolRunner(final String command) {
         this.command = command;
     }
 
-    protected Integer[] exitCodes() {
-        return new Integer[]{DEFAULT_COMMAND_EXIT_CODE};
+    protected int[] exitCodes() {
+        return new int[]{DEFAULT_COMMAND_EXIT_CODE};
     }
 
     private ProcBuilder build(String[] arguments) {
         ProcBuilder builtCommand = new ProcBuilder(command)
                 .withArgs(arguments)
                 .withTimeoutMillis(COMMAND_TIMEOUT)
-                .withExpectedExitStatuses(Set.of(exitCodes()));
+                .withExpectedExitStatuses(exitCodes());
         LOGGER.debug("Command that will be executed: {}", builtCommand.getCommandLine());
         return builtCommand;
     }

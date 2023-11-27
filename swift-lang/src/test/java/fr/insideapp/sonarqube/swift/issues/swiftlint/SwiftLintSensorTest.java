@@ -34,9 +34,7 @@ import org.sonar.api.batch.sensor.issue.Issue;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -89,9 +87,9 @@ public class SwiftLintSensorTest {
     @Test
     public void execute_noIssue() {
         // prepare
-        when(runner.run()).thenReturn(List.of());
-        when(parser.parse(anyString())).thenReturn(List.of());
-        when(mapper.map(any())).thenReturn(Set.of());
+        when(runner.run()).thenReturn(new ArrayList<>());
+        when(parser.parse(anyString())).thenReturn(new ArrayList<>());
+        when(mapper.map(any())).thenReturn(new HashSet<>());
         when(rulesDefinition.getRepositoryKey()).thenReturn("key");
         // test
         sensor.execute(context);
@@ -116,9 +114,9 @@ public class SwiftLintSensorTest {
                 5
         );
         context.fileSystem().add(testFile);
-        when(runner.run()).thenReturn(List.of());
-        when(parser.parse(anyString())).thenReturn(List.of());
-        when(mapper.map(any())).thenReturn(Set.of(issue));
+        when(runner.run()).thenReturn(new ArrayList<>());
+        when(parser.parse(anyString())).thenReturn(new ArrayList<>());
+        when(mapper.map(any())).thenReturn(new HashSet<>(Arrays.asList(issue)));
         when(rulesDefinition.getRepositoryKey()).thenReturn("key");
         // test
         sensor.execute(context);

@@ -68,7 +68,7 @@ public class ApplePlugin implements Plugin {
     }
 
     @SafeVarargs
-    private void register(Context context, Class<? extends ExtensionProvider>... providersClazz) {
+    private final void register(Context context, Class<? extends ExtensionProvider>... providersClazz) {
         for (Class<? extends ExtensionProvider> providerClazz : providersClazz) {
             try {
                 // registering provider

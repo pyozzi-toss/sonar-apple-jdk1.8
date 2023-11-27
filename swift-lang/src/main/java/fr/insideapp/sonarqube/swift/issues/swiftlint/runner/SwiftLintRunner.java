@@ -43,8 +43,8 @@ public final class SwiftLintRunner extends SwiftLintRunnable {
     }
 
     @Override
-    protected Integer[] exitCodes() {
-        return new Integer[]{0, 2};
+    protected int[] exitCodes() {
+        return new int[]{0, 2};
     }
 
 }

@@ -26,11 +26,11 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static fr.insideapp.sonarqube.apple.xcode.warnings.models.XcodeWarningType.*;
-import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class XcodeWarningTypeTest {
@@ -39,20 +39,20 @@ public final class XcodeWarningTypeTest {
 
     @Before
     public void prepare() {
-        data = Map.ofEntries(
-            entry("Swift Compiler Warning", SWIFT_COMPILER),
-            entry("Format String Issue", CLANG_COMPILER),
-            entry("Semantic Issue", CLANG_COMPILER),
-            entry("Value Conversion Issue", CLANG_COMPILER),
-            entry("Lexical or Preprocessor Issue", CLANG_COMPILER),
-            entry("Nullability Issue", CLANG_COMPILER),
-            entry("Deprecations", DEPRECATION),
-            entry("Deprecation", DEPRECATION),
-            entry("No-usage", UNUSED),
-            entry("Warning", PROJECT),
-            entry("Target Integrity", PROJECT),
-            entry("dummy random data", NOTE)
-        );
+        data = new HashMap<>();
+        data.put("Swift Compiler Warning", SWIFT_COMPILER);
+
+        data.put("Format String Issue", CLANG_COMPILER);
+        data.put("Semantic Issue", CLANG_COMPILER);
+                data.put("Value Conversion Issue", CLANG_COMPILER);
+                data.put("Lexical or Preprocessor Issue", CLANG_COMPILER);
+                data.put("Nullability Issue", CLANG_COMPILER);
+                data.put("Deprecations", DEPRECATION);
+                data.put("Deprecation", DEPRECATION);
+                data.put("No-usage", UNUSED);
+                data.put("Warning", PROJECT);
+                data.put("Target Integrity", PROJECT);
+                data.put("dummy random data", NOTE);
     }
 
 

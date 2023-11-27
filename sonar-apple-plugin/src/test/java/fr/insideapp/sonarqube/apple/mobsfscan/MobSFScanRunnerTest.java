@@ -22,8 +22,10 @@ import fr.insideapp.sonarqube.apple.mobsfscan.runner.MobSFScanRunner;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +50,7 @@ public final class MobSFScanRunnerTest {
     public void one_source() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method options = clazz.getDeclaredMethod("arguments");
         options.setAccessible(true);
-        mockSources(List.of("source1"));
+        mockSources(Arrays.asList("source1"));
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
                 "--json",
@@ -60,7 +62,7 @@ public final class MobSFScanRunnerTest {
     public void many_sources() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method options = clazz.getDeclaredMethod("arguments");
         options.setAccessible(true);
-        mockSources(List.of("source1", "source2"));
+        mockSources(Arrays.asList("source1", "source2"));
         String[] optionsBuilt = (String[]) options.invoke(runner);
         assertThat(optionsBuilt).isEqualTo(new String[]{
                 "--json",

@@ -95,12 +95,12 @@ public final class XcodeCoverageRecorderTest {
 
     @Test
     public void testLineOneHit() throws IOException {
-        List<Coverage> coverages = new ArrayList<>() {
+        List<Coverage> coverages = new ArrayList<Coverage>() {
             {
                 add(new Coverage(1, 1));
             }
         };
-        List<FileCoverage> files = new ArrayList<>() {
+        List<FileCoverage> files = new ArrayList<FileCoverage>() {
             {
                 add(new FileCoverage("file.swift", true, coverages));
             }
@@ -113,12 +113,12 @@ public final class XcodeCoverageRecorderTest {
 
     @Test
     public void testLineOneHitOverflow() throws IOException {
-        List<Coverage> coverages = new ArrayList<>() {
+        List<Coverage> coverages = new ArrayList<Coverage>() {
             {
                 add(new Coverage(1, Integer.MAX_VALUE));
             }
         };
-        List<FileCoverage> files = new ArrayList<>() {
+        List<FileCoverage> files = new ArrayList<FileCoverage>() {
             {
                 add(new FileCoverage("file.swift", true, coverages));
             }
@@ -131,13 +131,13 @@ public final class XcodeCoverageRecorderTest {
 
     @Test
     public void testManyLineHit() throws IOException {
-        List<Coverage> coverages = new ArrayList<>() {
+        List<Coverage> coverages = new ArrayList<Coverage>() {
             {
                 add(new Coverage(1, 1));
                 add(new Coverage(2, 2));
             }
         };
-        List<FileCoverage> files = new ArrayList<>() {
+        List<FileCoverage> files = new ArrayList<FileCoverage>() {
             {
                 add(new FileCoverage("file.swift", true, coverages));
             }
@@ -150,12 +150,12 @@ public final class XcodeCoverageRecorderTest {
 
     @Test
     public void testFileNotFound() throws IOException {
-        List<Coverage> coverages = new ArrayList<>() {
+        List<Coverage> coverages = new ArrayList<Coverage>() {
             {
                 add(new Coverage(1, 1));
             }
         };
-        List<FileCoverage> files = new ArrayList<>() {
+        List<FileCoverage> files = new ArrayList<FileCoverage>() {
             {
                 add(new FileCoverage("file.swift", false, coverages));
             }
@@ -168,9 +168,9 @@ public final class XcodeCoverageRecorderTest {
 
     @Test
     public void testLineNotExecutable() throws IOException {
-        List<FileCoverage> files = new ArrayList<>() {
+        List<FileCoverage> files = new ArrayList<FileCoverage>() {
             {
-                add(new FileCoverage("file.swift", true, List.of()));
+                add(new FileCoverage("file.swift", true, new ArrayList<>()));
             }
         };
         assertContainer(new Container(
@@ -181,12 +181,12 @@ public final class XcodeCoverageRecorderTest {
 
     @Test
     public void testManyFiles() throws IOException {
-        List<Coverage> coverages = new ArrayList<>() {
+        List<Coverage> coverages = new ArrayList<Coverage>() {
             {
                 add(new Coverage(1, 1));
             }
         };
-        List<FileCoverage> files = new ArrayList<>() {
+        List<FileCoverage> files = new ArrayList<FileCoverage>() {
             {
                 add(new FileCoverage("file_1.swift", true, coverages));
                 add(new FileCoverage("file_2.swift", true, coverages));

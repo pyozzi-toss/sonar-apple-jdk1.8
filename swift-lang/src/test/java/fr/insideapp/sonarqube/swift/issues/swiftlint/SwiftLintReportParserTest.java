@@ -89,7 +89,7 @@ public final class SwiftLintReportParserTest {
 
     @Test
     public void parse_one() throws IOException {
-        List<Violation> violations = new ArrayList<>() {
+        List<Violation> violations = new ArrayList<Violation>() {
             {
                 add(new Violation(
                         "path/to/file.swift",

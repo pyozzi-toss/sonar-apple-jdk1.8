@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -162,7 +163,7 @@ public final class XcodeTestsRecorderTest {
         File jsonFile = new File(baseDir, container.jsonFileName + ".json");
         String jsonFileContent = FileUtils.readFileToString(jsonFile, Charset.defaultCharset());
         ActionTestableSummary actionTestableSummary = objectMapper.readValue(jsonFileContent, ActionTestableSummary.class);
-        Set<XcodeTestSummary> testSummaries = mapper.map(List.of(actionTestableSummary));
+        Set<XcodeTestSummary> testSummaries = mapper.map(Arrays.asList(actionTestableSummary));
 
         // Running our code
         recorder.record(new ArrayList<>(testSummaries), context);

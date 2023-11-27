@@ -86,7 +86,7 @@ public final class OCLintReportParserTest {
 
     @Test
     public void parser_oneViolation() throws IOException {
-        List<Violation> violations = new ArrayList<>() {
+        List<Violation> violations = new ArrayList<Violation>() {
             {
                 add(new Violation(
                         "/SQApp/SQApp/Greeting.m",

@@ -25,23 +25,25 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.scanner.ScannerSide;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @ScannerSide
 public class ObjectiveCHighlighterVisitor implements ParseTreeItemVisitor {
 
-    private static final Set<Integer> ObjectiveCCommentTypes = Set.of(
+    private static final Set<Integer> ObjectiveCCommentTypes = new HashSet<>(Arrays.asList(
             ObjectiveCParser.MULTI_COMMENT,
             ObjectiveCParser.SINGLE_COMMENT,
             ObjectiveCParser.DIRECTIVE_MULTI_COMMENT,
             ObjectiveCParser.DIRECTIVE_SINGLE_COMMENT
-    );
+    ));
 
-    private static final Set<Integer> ObjectiveCStringTypes = Set.of(
+    private static final Set<Integer> ObjectiveCStringTypes = new HashSet<>(Arrays.asList(
             ObjectiveCParser.STRING_VALUE
-    );
+    ));
 
-    private static final Set<Integer> ObjectiveCPreProcessTypes = Set.of(
+    private static final Set<Integer> ObjectiveCPreProcessTypes = new HashSet<>(Arrays.asList(
             ObjectiveCParser.DIRECTIVE_IMPORT, ObjectiveCParser.DIRECTIVE_INCLUDE, ObjectiveCParser.DIRECTIVE_PRAGMA,
             ObjectiveCParser.DIRECTIVE_DEFINE, ObjectiveCParser.DIRECTIVE_DEFINED, ObjectiveCParser.DIRECTIVE_IF,
             ObjectiveCParser.DIRECTIVE_ELIF, ObjectiveCParser.DIRECTIVE_ELSE, ObjectiveCParser.DIRECTIVE_UNDEF,
@@ -56,13 +58,13 @@ public class ObjectiveCHighlighterVisitor implements ParseTreeItemVisitor {
             ObjectiveCParser.DIRECTIVE_NEWLINE, ObjectiveCParser.DIRECTIVE_MULTI_COMMENT,
             ObjectiveCParser.DIRECTIVE_SINGLE_COMMENT, ObjectiveCParser.DIRECTIVE_BACKSLASH_NEWLINE,
             ObjectiveCParser.DIRECTIVE_TEXT_NEWLINE, ObjectiveCParser.DIRECTIVE_TEXT
-    );
+    ));
 
-    private static final Set<Integer> ObjectiveCKeywordLightTypes = Set.of(
+    private static final Set<Integer> ObjectiveCKeywordLightTypes = new HashSet<>(Arrays.asList(
             ObjectiveCParser.IDENTIFIER
-    );
+    ));
 
-    private static final Set<Integer> ObjectiveCKeywordTypes = Set.of(
+    private static final Set<Integer> ObjectiveCKeywordTypes = new HashSet<>(Arrays.asList(
             ObjectiveCParser.AUTO, ObjectiveCParser.BREAK, ObjectiveCParser.CASE, ObjectiveCParser.CHAR,
             ObjectiveCParser.CONST, ObjectiveCParser.CONTINUE, ObjectiveCParser.DEFAULT, ObjectiveCParser.DO,
             ObjectiveCParser.DOUBLE, ObjectiveCParser.ELSE, ObjectiveCParser.ENUM, ObjectiveCParser.EXTERN,
@@ -112,7 +114,7 @@ public class ObjectiveCHighlighterVisitor implements ParseTreeItemVisitor {
             ObjectiveCParser.CHARACTER_LITERAL, ObjectiveCParser.STRING_START, ObjectiveCParser.HEX_LITERAL,
             ObjectiveCParser.OCTAL_LITERAL, ObjectiveCParser.BINARY_LITERAL, ObjectiveCParser.DECIMAL_LITERAL,
             ObjectiveCParser.FLOATING_POINT_LITERAL, ObjectiveCParser.WS
-    );
+    ));
 
     private final HighlighterVisitor highlighterVisitor;
 

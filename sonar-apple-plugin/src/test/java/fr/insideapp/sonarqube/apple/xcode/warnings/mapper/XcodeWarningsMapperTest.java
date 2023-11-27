@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ public final class XcodeWarningsMapperTest {
             null
         );
         // test
-        final List<ReportIssue> issues = new ArrayList<>(mapper.map(List.of(warning)));
+        final List<ReportIssue> issues = new ArrayList<>(mapper.map(Arrays.asList(warning)));
         // assert
         assertThat(issues).hasSize(1);
         ReportIssue issue = issues.get(0);
@@ -70,7 +71,7 @@ public final class XcodeWarningsMapperTest {
             )
         );
         // test
-        final List<ReportIssue> issues = new ArrayList<>(mapper.map(List.of(warning)));
+        final List<ReportIssue> issues = new ArrayList<>(mapper.map(Arrays.asList(warning)));
         // assert
         assertThat(issues).hasSize(1);
         ReportIssue issue = issues.get(0);

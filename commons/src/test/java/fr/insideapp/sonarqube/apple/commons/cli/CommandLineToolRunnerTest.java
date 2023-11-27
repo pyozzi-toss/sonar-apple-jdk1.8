@@ -43,9 +43,9 @@ public final class CommandLineToolRunnerTest {
         // prepare
         CommandLineToolRunner runner = makeMock("echo");
         // test
-        Integer[] exitCodes = runner.exitCodes();
+        int[] exitCodes = runner.exitCodes();
         // assert
-        assertThat(exitCodes).hasSize(1).isEqualTo(new Integer[]{0});
+        assertThat(exitCodes).hasSize(1).isEqualTo(new int[]{0});
     }
 
     @Test
@@ -53,11 +53,11 @@ public final class CommandLineToolRunnerTest {
         // prepare
         CommandLineToolRunner runner = makeMock("echo");
         // prepare
-        when(runner.exitCodes()).thenReturn(new Integer[]{1,2});
+        when(runner.exitCodes()).thenReturn(new int[]{1,2});
         // test
-        Integer[] exitCodes = runner.exitCodes();
+        int[] exitCodes = runner.exitCodes();
         // assert
-        assertThat(exitCodes).hasSize(2).isEqualTo(new Integer[]{1,2});
+        assertThat(exitCodes).hasSize(2).isEqualTo(new int[]{1,2});
     }
 
     @Test

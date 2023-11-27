@@ -23,6 +23,7 @@ import fr.insideapp.sonarqube.apple.commons.warnings.XcodeWarningRulesDefinition
 import fr.insideapp.sonarqube.apple.xcode.runner.XcodeResultReadRunnable;
 import fr.insideapp.sonarqube.apple.xcode.warnings.converter.XcodeWarningConvertible;
 import fr.insideapp.sonarqube.apple.xcode.warnings.mapper.XcodeWarningsMapper;
+import fr.insideapp.sonarqube.apple.xcode.warnings.models.XcodeWarningType;
 import fr.insideapp.sonarqube.apple.xcode.warnings.parser.XcodeWarningParsable;
 import fr.insideapp.sonarqube.apple.xcode.warnings.splitter.XcodeWarningsReportIssueSplittable;
 import fr.insideapp.sonarqube.objc.ObjectiveC;
@@ -39,10 +40,7 @@ import org.sonar.api.batch.sensor.issue.Issue;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -119,10 +117,14 @@ public final class XcodeWarningsSensorTest {
         File jsonFile = new File(baseDir, "one_warning.json");
         String jsonFileContent = FileUtils.readFileToString(jsonFile, Charset.defaultCharset());
         when(runner.run(any())).thenReturn(jsonFileContent);
-        when(parser.parse(anyString())).thenReturn(List.of());
-        when(converter.map(any())).thenReturn(Set.of());
-        when(mapper.map(any())).thenReturn(Set.of(issue));
-        when(splitter.split(any(), any())).thenReturn(Map.of(rulesDefinition, List.of(issue)));
+        when(parser.parse(anyString())).thenReturn(new ArrayList<>());
+        when(converter.map(any())).thenReturn(new HashSet<>());
+        when(mapper.map(any())).thenReturn(new HashSet<>(Arrays.asList(issue)));
+
+        HashMap<XcodeWarningRulesDefinition, List<ReportIssue>> data = new HashMap<>();
+        data.put(rulesDefinition, Arrays.asList(issue));
+
+        when(splitter.split(any(), any())).thenReturn(new HashMap<>(data));
         when(rulesDefinition.getRepositoryKey()).thenReturn("key");
         // test
         sensor.execute(context);

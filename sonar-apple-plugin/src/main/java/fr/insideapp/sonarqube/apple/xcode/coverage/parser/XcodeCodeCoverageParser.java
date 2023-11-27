@@ -24,6 +24,7 @@ import fr.insideapp.sonarqube.apple.commons.parser.ReportMapParser;
 import fr.insideapp.sonarqube.apple.xcode.coverage.models.XcodeCodeCoverageMetadata;
 import org.sonar.api.scanner.ScannerSide;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,9 @@ public final class XcodeCodeCoverageParser extends ReportMapParser<String, List<
 
     @Override
     protected Map<String, List<XcodeCodeCoverageMetadata>> perform(String input) throws Exception {
-        return objectMapper.readValue(input, new TypeReference<>() {});
+        return objectMapper.readValue(input, new TypeReference<Map
+                <java.lang.String,
+                        java.util.List<fr.insideapp.sonarqube.apple.xcode.coverage.models.XcodeCodeCoverageMetadata>>>() {});
     }
 
 }

@@ -22,6 +22,7 @@ import fr.insideapp.sonarqube.apple.commons.SourceLinesProvider;
 import fr.insideapp.sonarqube.apple.commons.antlr.AntlrContext;
 import fr.insideapp.sonarqube.objc.antlr.generated.ObjectiveCLexer;
 import fr.insideapp.sonarqube.objc.antlr.generated.ObjectiveCParser;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -39,7 +40,7 @@ public class ObjectiveCAntlrContext extends AntlrContext {
     @Override
     public void loadFromStreams(InputFile inputFile, InputStream file, InputStream linesStream, Charset charset) throws IOException {
         final SourceLinesProvider linesProvider = new SourceLinesProvider();
-        final CharStream charStream = CharStreams.fromStream(file, charset);
+        final CharStream charStream = new ANTLRInputStream(file);
         final ObjectiveCLexer lexer = new ObjectiveCLexer(charStream);
         lexer.removeErrorListeners();
         final CommonTokenStream stream = new CommonTokenStream(lexer);
